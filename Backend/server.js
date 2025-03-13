@@ -9,9 +9,9 @@ app.use(express.json());
 // Create connection to MySQL database
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root', // Your MySQL username
-  password: 'Mysql@123', // Your MySQL password (leave empty if not set)
-  database: 'hardware' // Replace with your database name
+  user: 'root',
+  password: 'Mysql@123',
+  database: 'hardware'
 });
 
 // Connect to database
@@ -36,6 +36,20 @@ app.post('/supplier', (req, res) => {
       res.status(500).send('Error saving data');
     } else {
       res.status(200).send('Supplier data saved successfully!');
+    }
+  });
+});
+
+// API endpoint for fetching suppliers
+app.get('/suppliers', (req, res) => {
+  const sql = 'SELECT * FROM suppliers';
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Failed to fetch suppliers: ', err);
+      res.status(500).send('Server error');
+    } else {
+      res.json(results);
     }
   });
 });
