@@ -5,19 +5,26 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Supplier() {
+  
   const [name, setName] = useState('');
+  const [sid,setSid] = useState('')
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [contact,setContact] = useState('');
+  const [address, setAddress] = useState('');
+  const [remarks, setRemarks] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/signup', {
+      const response = await axios.post('http://localhost:5000/supplier', {
         name,
+        sid,
         email,
-        password,
+        contact,
+        address,
+        remarks,
       });
 
       if (response.status === 200) {
@@ -44,37 +51,70 @@ function Supplier() {
         <div className={styles.supplierContainer}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.headers}>
-              <h2>Admin</h2>
+              <h2>Supplier Details</h2>
             </div>
 
-            <div className={styles.mb3}>
-              <label><strong>Name</strong></label>
-              <input
-                type="text"
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
+            <div className={styles.formGrid}>
+              <div className={styles.mb3}>
+                <label><strong>Supplier Name</strong></label>
+                <input
+                  type="text"
+                  placeholder='Enter name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
 
-            <div className={styles.mb3}>
-              <label><strong>Email</strong></label>
-              <input
-                type="email"
-                placeholder='Enter Email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+              <div className={styles.mb3}>
+                <label><strong>Supplier ID</strong></label>
+                <input
+                  type="text"
+                  placeholder='Enter ID'
+                  value={sid}
+                  onChange={(e) => setSid(e.target.value)}
+                />
+              </div>
 
-            <div className={styles.mb3}>
-              <label><strong>Password</strong></label>
-              <input
-                type="password"
-                placeholder='Enter Password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className={styles.mb3}>
+                <label><strong>Email</strong></label>
+                <input
+                  type="email"
+                  placeholder='Enter Email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Contact Number</strong></label>
+                <input
+                  type="tel"
+                  placeholder='Enter phone number'
+                  pattern="[0-9]{10}" required
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Address</strong></label>
+                <input
+                  type="text"
+                  placeholder='Enter Address'
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Remarks</strong></label>
+                <input
+                  type="text"
+                  placeholder='Enter Remarks'
+                  value={remarks}
+                  onChange={(e) => setRemarks(e.target.value)}
+                />
+              </div>
             </div>
 
             <button type="submit" className={styles.btn}>Sign Up</button>
