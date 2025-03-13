@@ -6,8 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 function Home() {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick1 = () => {
     navigate('/supplier');
+  };
+
+  const handleClick2 = () => {
+    navigate('/order');
   };
 
   return (
@@ -17,8 +21,8 @@ function Home() {
         <img src={apssaraLogo} alt="Company Logo" className={styles.logo} />
         <nav className={styles.navbar}>
           <button className={styles.navButton}>Home</button>
-          <button className={styles.navButton} onClick={handleClick}>Add Supplier</button>
-          <button className={styles.navButton}>Order Product</button>
+          <button className={styles.navButton} onClick={handleClick1}>Add Supplier</button>
+          <button className={styles.navButton} onClick={handleClick2}>Order Product</button>
         </nav>
       </div>
 

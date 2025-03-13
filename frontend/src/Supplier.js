@@ -43,7 +43,7 @@ function Supplier() {
         <nav className={styles.navbar}>
           <button className={styles.navButton} onClick={() => navigate('/home')}>Home</button>
           <button className={styles.navButton}>Add Supplier</button>
-          <button className={styles.navButton}>Order Product</button>
+          <button className={styles.navButton} onClick={() => navigate('/order')}>Order Product</button>
         </nav>
       </div>
 
@@ -117,7 +117,7 @@ function Supplier() {
               </div>
             </div>
 
-            <button type="submit" className={styles.btn}>Sign Up</button>
+            <button type="submit" className={styles.btn}>Add Supplier</button>
           </form>
         </div>
       </div>

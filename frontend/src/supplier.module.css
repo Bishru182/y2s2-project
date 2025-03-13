@@ -39,7 +39,7 @@
     bottom: 10px; /* Adjust distance from bottom */
     right: 10px; /* Adjust distance from right */
     display: flex;
-    gap: 20px;
+    gap: 0px;
 }
 .navButton {
     background-color: rgba(2, 172, 2, 0);
