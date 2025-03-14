@@ -1,5 +1,8 @@
 /* General Container Styling */
-
+.content1{
+    margin: -62px 0px 0px 0px;
+    
+ }
 .contain {
     display: flex;
     flex-direction: column;
@@ -112,6 +115,7 @@
     background-color: transparent;
     border: 2px solid black;
     font-size: medium;
+    border-radius: 5px;
 }
 
 .form select:hover{
@@ -120,7 +124,41 @@
     background-color: transparent;
     border: 2px solid rgb(255, 170, 0);
     font-size: medium;
+    border-radius: 5px;
 }
+
+.mb32{
+    width: 95%;
+    padding: 20px 50px;
+    background-color: transparent;
+    
+    font-size: medium;
+    
+}
+
+.mb32 textarea{
+    width: 95%;
+    padding: 20px 50px;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: medium;
+    margin-right: 110px;
+    
+}
+
+.mb32 textarea:hover{
+    width: 95%;
+    padding: 20px 50px;
+    background-color: transparent;
+    border: 2px solid rgb(255, 170, 0);
+    border-radius: 5px;
+    font-size: medium;
+    margin-right: 110px;
+    
+}
+
+
 
 
 

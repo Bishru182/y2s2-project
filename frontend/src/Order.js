@@ -7,6 +7,10 @@ import axios from 'axios';
 function Order() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [productName, setProductName] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [requireDate, setRequireDate] = useState('');
+  const [remarks, setRemarks] = useState('');
   const [suppliers, setSuppliers] = useState([]);
 
   const navigate = useNavigate();
@@ -28,20 +32,31 @@ function Order() {
     const selectedSupplierName = e.target.value;
     setName(selectedSupplierName);
 
-    // Find the selected supplier from the suppliers list
     const selectedSupplier = suppliers.find(supplier => supplier.name === selectedSupplierName);
-    
-    // If found, set the email state to the selected supplier's email
     if (selectedSupplier) {
       setEmail(selectedSupplier.email);
     } else {
-      setEmail(''); // Clear email if no supplier is selected
+      setEmail('');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic here
+
+    try {
+      const response = await axios.post('http://localhost:5000/order', {
+        name,
+        email,
+        productName,
+        quantity,
+        requireDate,
+        remarks
+      });
+      alert('Order placed successfully!');
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Failed to place the order.');
+    }
   };
 
   return (
@@ -58,17 +73,12 @@ function Order() {
       <div className={styles.content1}>
         <div className={styles.supplierContainer}>
           <form className={styles.form} onSubmit={handleSubmit}>
-            <div className={styles.headers}>
-              <h2>Order product</h2>
-            </div>
+            <div className={styles.headers}><h2>Order Product</h2></div>
 
             <div className={styles.formGrid}>
               <div className={styles.mb3}>
                 <label><strong>Supplier Name</strong></label>
-                <select
-                  value={name}
-                  onChange={handleSupplierChange}
-                >
+                <select value={name} onChange={handleSupplierChange}>
                   <option value="">Select Supplier</option>
                   {suppliers.map((supplier) => (
                     <option key={supplier.id} value={supplier.name}>{supplier.name}</option>
@@ -78,17 +88,31 @@ function Order() {
 
               <div className={styles.mb3}>
                 <label><strong>Email</strong></label>
-                <input
-                  type="email"
-                  placeholder="Enter Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  readOnly
-                />
+                <input type="email" value={email} readOnly />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Product Name</strong></label>
+                <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} required />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Quantity</strong></label>
+                <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+              </div>
+
+              <div className={styles.mb32}>
+                <label><strong>Require Date</strong></label>
+                <input type="date" value={requireDate} onChange={(e) => setRequireDate(e.target.value)} required />
+              </div>
+
+              <div className={styles.mb32}>
+                <label><strong>Remarks</strong></label>
+                <textarea value={remarks} onChange={(e) => setRemarks(e.target.value)}></textarea>
               </div>
             </div>
 
-            <button type="submit" className={styles.btn}>Add Supplier</button>
+            <button type="submit" className={styles.btn}>Order</button>
           </form>
         </div>
       </div>

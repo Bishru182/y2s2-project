@@ -27,8 +27,6 @@ db.connect((err) => {
 app.post('/supplier', (req, res) => {
   const { name, sid, email, contact, address, remarks } = req.body;
 
-  console.log(req.body);
-
   const sql = 'INSERT INTO suppliers (name, sid, email, contact, address, remarks) VALUES (?, ?, ?, ?, ?, ?)';
   db.query(sql, [name, sid, email, contact, address, remarks], (err, result) => {
     if (err) {
@@ -50,6 +48,21 @@ app.get('/suppliers', (req, res) => {
       res.status(500).send('Server error');
     } else {
       res.json(results);
+    }
+  });
+});
+
+// API endpoint for saving order data
+app.post('/order', (req, res) => {
+  const { name, email, productName, quantity, requireDate, remarks } = req.body;
+
+  const sql = 'INSERT INTO orders (supplier_name, supplier_email, product_name, quantity, require_date, remarks) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(sql, [name, email, productName, quantity, requireDate, remarks], (err, result) => {
+    if (err) {
+      console.error('Failed to place order: ', err);
+      res.status(500).send('Error placing order');
+    } else {
+      res.status(200).send('Order placed successfully!');
     }
   });
 });
