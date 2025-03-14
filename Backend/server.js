@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const nodemailer = require('nodemailer'); // Import nodemailer
 
 const app = express();
 app.use(cors());
@@ -41,7 +42,6 @@ app.post('/supplier', (req, res) => {
 // API endpoint for fetching suppliers
 app.get('/suppliers', (req, res) => {
   const sql = 'SELECT * FROM suppliers';
-
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Failed to fetch suppliers: ', err);
@@ -52,18 +52,52 @@ app.get('/suppliers', (req, res) => {
   });
 });
 
-// API endpoint for saving order data
+// API endpoint for saving orders and sending email
 app.post('/order', (req, res) => {
   const { name, email, productName, quantity, requireDate, remarks } = req.body;
 
-  const sql = 'INSERT INTO orders (supplier_name, supplier_email, product_name, quantity, require_date, remarks) VALUES (?, ?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO orders (name, email, productName, quantity, requireDate, remarks) VALUES (?, ?, ?, ?, ?, ?)';
   db.query(sql, [name, email, productName, quantity, requireDate, remarks], (err, result) => {
     if (err) {
-      console.error('Failed to place order: ', err);
-      res.status(500).send('Error placing order');
-    } else {
-      res.status(200).send('Order placed successfully!');
+      console.error('Failed to insert order data: ', err);
+      return res.status(500).send('Error saving order data');
     }
+
+    // Send Email to Supplier
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'apsarahardware088@gmail.com', // Your email
+        pass: 'kwwi awsp umty wupu' // Your email password (use App Password if 2FA is enabled)
+      }
+    });
+
+    const mailOptions = {
+      from: 'apsarahardware088@gmail.com',
+      to: email,
+      subject: 'New Product Order Request',
+      text: `Dear ${name},
+
+We would like to place an order for the following product:
+Product Name: ${productName}
+Quantity: ${quantity}
+Required Date: ${requireDate}
+Remarks: ${remarks}
+
+Please confirm the availability of the product and provide an estimated delivery date.
+
+Thank you,
+Hardware Store`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Failed to send email: ', error);
+        return res.status(500).send('Error sending email');
+      }
+      console.log('Email sent: ' + info.response);
+      res.status(200).send('Order placed and email sent successfully!');
+    });
   });
 });
 
