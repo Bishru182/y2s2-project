@@ -44,7 +44,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', sans-serif;
     font-weight: bold;
 }
 
@@ -55,20 +55,13 @@
 
 /* Content Section Styling */
 .content {
-    max-width: 1200px; /* Increased width to fit the table */
+    max-width: 1200px; 
     width: 100%; 
     padding: 20px;
     background-color: white;
     border-radius: 10px;
     margin-top: 140px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Paragraph Styling */
-p {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.6;
 }
 
 /* Orders Section Styling */
@@ -78,7 +71,7 @@ p {
 
 /* Orders Table Styling */
 .ordersTable {
-    width: 100%; /* Ensure it stretches to fit the parent */
+    width: 100%; 
     border-collapse: collapse;
 }
 
@@ -91,3 +84,29 @@ p {
 .ordersTable th {
     background-color: #f2f2f2;
 }
+
+/* Table Button Styling */
+/* Button Container Styling */
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Add New Order Button Styling */
+.tableButton {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.tableButton:hover {
+    background-color:rgba(255, 170, 1);
+    color: rgb(18, 19, 18);
+}
+

@@ -29,6 +29,10 @@ function Home() {
     navigate('/order');
   };
 
+  const handleAddOrder = () => {
+    navigate('/order');
+  };
+
   return (
     <div className={styles.contain}>
       {/* Topmost Section: Navbar within Image Container */}
@@ -78,6 +82,13 @@ function Home() {
               ))}
             </tbody>
           </table>
+
+          {/* Add New Order Button */}
+          <div className={styles.buttonContainer}>
+            <button className={styles.tableButton} onClick={handleAddOrder}>
+              View Suppliers
+            </button>
+          </div>
         </div>
       </div>
     </div>
