@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
 import apssaraLogo from './apssaraLogo.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Home() {
+  const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/orders');
+        setOrders(response.data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   const handleClick1 = () => {
     navigate('/supplier');
@@ -31,6 +46,39 @@ function Home() {
         <p>
           Welcome to our company! We are dedicated to providing top-quality hardware solutions to meet your needs. From reliable suppliers to efficient order management, we strive to ensure the best service for our clients.
         </p>
+
+        {/* Orders Table */}
+        <div className={styles.ordersSection}>
+          <h2>Ordered Items</h2>
+          <table className={styles.ordersTable}>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Supplier Name</th>
+                <th>Email</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Require Date</th>
+                <th>Remarks</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map(order => (
+                <tr key={order.id}>
+                  <td>{order.id}</td>
+                  <td>{order.name}</td>
+                  <td>{order.email}</td>
+                  <td>{order.productName}</td>
+                  <td>{order.quantity}</td>
+                  <td>{order.requireDate}</td>
+                  <td>{order.remarks}</td>
+                  <td>{new Date(order.createdAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

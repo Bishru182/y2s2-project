@@ -39,6 +39,20 @@ app.post('/supplier', (req, res) => {
   });
 });
 
+// API endpoint for fetching orders
+app.get('/orders', (req, res) => {
+  const sql = 'SELECT * FROM orders';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Failed to fetch orders: ', err);
+      res.status(500).send('Server error');
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+
 // API endpoint for fetching suppliers
 app.get('/suppliers', (req, res) => {
   const sql = 'SELECT * FROM suppliers';

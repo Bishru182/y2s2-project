@@ -5,70 +5,89 @@
     align-items: center;
     width: 100%;
     background-color: #f0f0f0;
-    height: 100vh;
+    min-height: 100vh; 
 }
-  
+
 /* Header Styling */
 .header {
-    position: relative;
     width: 100%;
     height: 110px;
     background-color: #1c1c1c;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
-    position: relative;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
 }
-  
+
+/* Logo Styling */
 .logo {
     height: 80%;
     object-fit: contain;
-    position: absolute;
-    display: flex;
-    left: 7px;
-    top: 10px;
 }
-  
+
+/* Navbar Styling */
 .navbar {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
     display: flex;
-    gap: 0px;
+    gap: 10px; 
 }
-  
+
+/* Navbar Button Styling */
 .navButton {
-    background-color: rgba(2, 172, 2,0);
+    background-color: rgba(2, 172, 2, 0);
     color: rgb(255, 170, 0);
     padding: 10px 20px;
     border: 1px solid black;
-    border-radius:0;
+    border-radius: 0;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: large;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
 }
-  
+
 .navButton:hover {
     background-color: rgba(255, 170, 1);
     color: rgb(18, 19, 18);
 }
-  
+
 /* Content Section Styling */
 .content {
-    max-width: 800px;
+    max-width: 1200px; /* Increased width to fit the table */
+    width: 100%; 
     padding: 20px;
     background-color: white;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 140px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-  
+
+/* Paragraph Styling */
 p {
     font-size: 1rem;
     color: #333;
     line-height: 1.6;
+}
+
+/* Orders Section Styling */
+.ordersSection {
+    margin-top: 20px;
+}
+
+/* Orders Table Styling */
+.ordersTable {
+    width: 100%; /* Ensure it stretches to fit the parent */
+    border-collapse: collapse;
+}
+
+.ordersTable th, .ordersTable td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.ordersTable th {
+    background-color: #f2f2f2;
 }
