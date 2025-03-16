@@ -4,6 +4,11 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './Home.js'
 import Supplier from './Supplier.js'
 import Order from './Order.js'
+import Sview from './Sview.js'
+
+
+
+
 
 
 function App() {
@@ -14,6 +19,8 @@ function App() {
         <Route path='/home' element={<Home/>}></Route>
         <Route path='/supplier' element={<Supplier/>}></Route>
         <Route path='/order' element={<Order/>}></Route>
+        <Route path='/sview' element={<Sview/>}></Route>
+        
       </Routes>
       
     </BrowserRouter>

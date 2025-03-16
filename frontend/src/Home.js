@@ -29,8 +29,9 @@ function Home() {
     navigate('/order');
   };
 
-  const handleAddOrder = () => {
-    navigate('/order');
+ 
+  const handleClick3 = () => {
+    navigate('/sview');
   };
 
   return (
@@ -40,6 +41,7 @@ function Home() {
         <img src={apssaraLogo} alt="Company Logo" className={styles.logo} />
         <nav className={styles.navbar}>
           <button className={styles.navButton}>Home</button>
+          <button className={styles.navButton} onClick={handleClick3}>Supplier</button>
           <button className={styles.navButton} onClick={handleClick1}>Add Supplier</button>
           <button className={styles.navButton} onClick={handleClick2}>Order Product</button>
         </nav>
@@ -47,9 +49,7 @@ function Home() {
 
       {/* Company Information Section */}
       <div className={styles.content}>
-        <p>
-          Welcome to our company! We are dedicated to providing top-quality hardware solutions to meet your needs. From reliable suppliers to efficient order management, we strive to ensure the best service for our clients.
-        </p>
+       
 
         {/* Orders Table */}
         <div className={styles.ordersSection}>
@@ -84,11 +84,7 @@ function Home() {
           </table>
 
           {/* Add New Order Button */}
-          <div className={styles.buttonContainer}>
-            <button className={styles.tableButton} onClick={handleAddOrder}>
-              View Suppliers
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>

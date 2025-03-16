@@ -66,6 +66,21 @@ app.get('/suppliers', (req, res) => {
   });
 });
 
+// API endpoint for deleting a supplier
+app.delete('/supplier/:id', (req, res) => {
+  const { id } = req.params;
+
+  const sql = 'DELETE FROM suppliers WHERE id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Failed to delete supplier: ', err);
+      res.status(500).send('Error deleting supplier');
+    } else {
+      res.status(200).send('Supplier deleted successfully');
+    }
+  });
+});
+
 // API endpoint for saving orders and sending email
 app.post('/order', (req, res) => {
   const { name, email, productName, quantity, requireDate, remarks } = req.body;
