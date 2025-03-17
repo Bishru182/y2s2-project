@@ -65,7 +65,7 @@ function Order() {
         <img src={apssaraLogo} alt="Company Logo" className={styles.logo} />
         <nav className={styles.navbar}>
           <button className={styles.navButton} onClick={() => navigate('/home')}>Home</button>
-          <button className={styles.navButton}>Add Supplier</button>
+          <button className={styles.navButton}onClick={() => navigate('/sview')}>Supplier</button>
           <button className={styles.navButton} onClick={() => navigate('/order')}>Order Product</button>
         </nav>
       </div>
