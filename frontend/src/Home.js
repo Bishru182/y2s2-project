@@ -42,7 +42,6 @@ function Home() {
         <nav className={styles.navbar}>
           <button className={styles.navButton}>Home</button>
           <button className={styles.navButton} onClick={handleClick3}>Supplier</button>
-          <button className={styles.navButton} onClick={handleClick1}>Add Supplier</button>
           <button className={styles.navButton} onClick={handleClick2}>Order Product</button>
         </nav>
       </div>

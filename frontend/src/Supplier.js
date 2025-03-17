@@ -29,26 +29,33 @@ function Supplier() {
 
       if (response.status === 200) {
         alert('Supplier registered successfully!');
-        navigate('/home');
+        navigate('/sview');
       }
     } catch (error) {
       alert('Error: ' + error.response.data);
     }
   };
 
+  const handleClick = () => {
+    navigate('/sview');
+  };
+
   return (
     <div className={styles.contain}>
       <div className={styles.header}>
         <img src={apssaraLogo} alt="Company Logo" className={styles.logo} />
+        
         <nav className={styles.navbar}>
           <button className={styles.navButton} onClick={() => navigate('/home')}>Home</button>
-          <button className={styles.navButton}>Add Supplier</button>
+          <button className={styles.navButton}>Supplier</button>
           <button className={styles.navButton} onClick={() => navigate('/order')}>Order Product</button>
         </nav>
       </div>
 
       <div className={styles.content1}>
         <div className={styles.supplierContainer}>
+         <div className={styles.btn_back} onClick={handleClick}><button>back</button></div>
+          
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.headers}>
               <h2>Supplier Details</h2>

@@ -1,46 +1,40 @@
 /* General Container Styling */
-
 .contain {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     background-color: #f0f0f0;
-    height: 100vh;
-    padding:0px; /* Add padding for smaller screens */
-    margin: 0px;
-    box-sizing: border-box;
+    min-height: 100vh; 
 }
 
 /* Header Styling */
 .header {
     width: 100%;
-    height: 150px;
+    height: 110px;
     background-color: #1c1c1c;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+     /* Ensure the btn_back is positioned within this element */
 }
-
+/* Logo Styling */
 .logo {
     height: 80%;
     object-fit: contain;
-    position: absolute;
-    left: 7px;
-    top: 10px;
 }
 
+/* Navbar Styling */
 .navbar {
-    position: absolute;
-    bottom: 10px; /* Adjust distance from bottom */
-    right: 10px; /* Adjust distance from right */
     display: flex;
-    gap: 0px;
+    gap: 10px; 
 }
+
+/* Navbar Button Styling */
 .navButton {
     background-color: rgba(2, 172, 2, 0);
     color: rgb(255, 170, 0);
@@ -50,7 +44,7 @@
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', sans-serif;
     font-weight: bold;
 }
 
@@ -61,17 +55,50 @@
 
 /* Form Container */
 .supplierContainer {
-    width: 100%;
-    max-width: 800px;
     background-color: none;
-    padding: 2rem;
-    border-radius: 0.75rem;
     box-shadow: none;
-    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center; /* Centering all child elements */
+    max-width: 1200px; 
+    width: 100%; 
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 140px; 
+   
 }
+.btn_back {
+    position: absolute;
+    /* left: 0; */
+    margin-right: 840px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+.btn_back button {
+    background-color: rgb(136, 134, 134);
+    color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: 'Lucida Sans', sans-serif;
+    
+}
+
+.btn_back button:hover {
+    background-color: rgba(255, 170, 1);
+    color: black;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: 'Lucida Sans', sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
 
 /* Header Alignment */
 .headers h2 {

@@ -39,6 +39,10 @@ function Sview() {
     }
   };
 
+  const handleClick = () => {
+    navigate('/supplier');
+  };
+
   return (
     <div className={styles.contain}>
       {/* Topmost Section: Navbar within Image Container */}
@@ -47,7 +51,7 @@ function Sview() {
         <nav className={styles.navbar}>
           <button className={styles.navButton} onClick={() => navigate('/home')}>Home</button>
           <button className={styles.navButton} onClick={() => navigate('/sview')}>Supplier</button>
-          <button className={styles.navButton} onClick={handleAddSupplier}>Add Supplier</button>
+          
           <button className={styles.navButton} onClick={() => navigate('/order')}>Order Product</button>
         </nav>
       </div>
@@ -85,6 +89,9 @@ function Sview() {
               ))}
             </tbody>
           </table>
+          <div className={styles.btn_supplierContainer}>
+            <button className={styles.btn_supplier} onClick={handleClick}> Add Suppliers</button>
+          </div>
         </div>
       </div>
     </div>

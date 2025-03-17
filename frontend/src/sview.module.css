@@ -64,6 +64,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/*add supplier button styling*/
+
+
+.btn_supplier:hover{
+    background-color: rgba(255, 170, 1);
+    color: black;
+    padding: 10px 35px;
+    border-radius: 5px;
+}
+
 /* Supplier Section Styling */
 .supplierSection {
     margin-top: 20px;
@@ -135,4 +145,33 @@
 
 .tableButton:last-child:hover {
     background-color: #d32f2f;
+}
+
+.btn_supplierContainer{
+    margin: auto;
+    margin-top: 10px;
+    max-width: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+
+}
+.btn_supplier{
+    background-color: black;
+    color: white;
+    padding: 10px 35px;
+    border-radius: 5px;
+    border: none;
+}
+
+.btn_supplier:hover{
+    background-color: rgba(255, 170, 1);
+    color: black;
+    padding: 10px 35px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
