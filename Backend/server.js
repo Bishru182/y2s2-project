@@ -81,6 +81,23 @@ app.delete('/supplier/:id', (req, res) => {
   });
 });
 
+// API endpoint for updating supplier data
+app.put('/supplier/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, sid, email, contact, address, remarks } = req.body;
+
+  const sql = 'UPDATE suppliers SET name = ?, sid = ?, email = ?, contact = ?, address = ?, remarks = ? WHERE id = ?';
+  db.query(sql, [name, sid, email, contact, address, remarks, id], (err, result) => {
+    if (err) {
+      console.error('Failed to update supplier: ', err);
+      res.status(500).send('Error updating supplier data');
+    } else {
+      res.status(200).send('Supplier updated successfully');
+    }
+  });
+});
+
+
 // API endpoint for saving orders and sending email
 app.post('/order', (req, res) => {
   const { name, email, productName, quantity, requireDate, remarks } = req.body;

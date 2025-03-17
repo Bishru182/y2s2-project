@@ -26,9 +26,9 @@ function Sview() {
   };
 
   const handleEdit = (supplier) => {
-    console.log('Edit Supplier:', supplier);
-    // Implement the edit functionality here or navigate to an edit page.
+    navigate('/sedit', { state: { supplier } });
   };
+  
 
   const handleDelete = async (id) => {
     try {
@@ -41,6 +41,9 @@ function Sview() {
 
   const handleClick = () => {
     navigate('/supplier');
+  };
+  const handleClick2 = () => {
+    navigate('/sedit');
   };
 
   return (
