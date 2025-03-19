@@ -7,12 +7,40 @@ import axios from 'axios';
 function Supplier() {
   
   const [name, setName] = useState('');
-  const [sid,setSid] = useState('')
+  const [sid, setSid] = useState('');
   const [email, setEmail] = useState('');
-  const [contact,setContact] = useState('');
+  const [contact, setContact] = useState('');
   const [address, setAddress] = useState('');
+  const [nic, setNic] = useState('');
+  const [gender, setGender] = useState(''); // New state for gender
   const [remarks, setRemarks] = useState('');
   const navigate = useNavigate();
+
+  const handleNICChange = (e) => {
+    const inputNic = e.target.value;
+    setNic(inputNic);
+
+    if (/^\d{9}[VXvx]$|^\d{12}$/.test(inputNic)) {
+      let genderDigits = '';
+
+      if (inputNic.length === 10) {
+        // Old format (9 digits + V/X)
+        genderDigits = inputNic.substring(2, 5);
+      } else if (inputNic.length === 12) {
+        // New format (12 digits)
+        genderDigits = inputNic.substring(4, 7);
+      }
+
+      if (genderDigits) {
+        const genderNumber = parseInt(genderDigits, 10);
+        setGender(genderNumber > 500 ? 'Female' : 'Male');
+      } else {
+        setGender('');
+      }
+    } else {
+      setGender('');
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +52,8 @@ function Supplier() {
         email,
         contact,
         address,
+        nic,
+        gender, // Including gender in the post request
         remarks,
       });
 
@@ -110,6 +140,28 @@ function Supplier() {
                   placeholder='Enter Address'
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>NIC number</strong></label>
+                <input
+                  type="text"
+                  placeholder='Enter NIC'
+                  value={nic}
+                  onChange={handleNICChange}
+                  pattern="^\d{9}[VXvx]$|^\d{12}$"
+                  title="Enter a valid Sri Lankan NIC (9 digits followed by V/X or 12 digits)"
+                />
+              </div>
+
+              <div className={styles.mb3}>
+                <label><strong>Gender</strong></label>
+                <input
+                  type="text"
+                  value={gender}
+                  readOnly
+                  placeholder="Gender will be detected automatically"
                 />
               </div>
 

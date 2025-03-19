@@ -26,10 +26,10 @@ db.connect((err) => {
 
 // API endpoint for saving supplier data
 app.post('/supplier', (req, res) => {
-  const { name, sid, email, contact, address, remarks } = req.body;
+  const { name, sid, email, contact, address, nic, gender, remarks } = req.body;
 
-  const sql = 'INSERT INTO suppliers (name, sid, email, contact, address, remarks) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(sql, [name, sid, email, contact, address, remarks], (err, result) => {
+  const sql = 'INSERT INTO suppliers (name, sid, email, contact, address, nic, gender, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  db.query(sql, [name, sid, email, contact, address, nic, gender, remarks], (err, result) => {
     if (err) {
       console.error('Failed to insert data: ', err);
       res.status(500).send('Error saving data');
