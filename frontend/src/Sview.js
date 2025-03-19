@@ -71,6 +71,8 @@ function Sview() {
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Address</th>
+                <th>NIC</th>
+                <th>Gender</th>
                 <th>Remarks</th>
                 <th>Actions</th>
               </tr>
@@ -83,10 +85,14 @@ function Sview() {
                   <td>{supplier.email}</td>
                   <td>{supplier.contact}</td>
                   <td>{supplier.address}</td>
+                  <td>{supplier.nic}</td>
+                  <td>{supplier.gender}</td>
                   <td>{supplier.remarks}</td>
                   <td>
+                    <div className={styles.buttonContainer}>
                     <button className={styles.tableButton} onClick={() => handleEdit(supplier)}>Edit</button>
                     <button className={styles.tableButton} onClick={() => handleDelete(supplier.id)}>Delete</button>
+                    </div>
                   </td>
                 </tr>
               ))}

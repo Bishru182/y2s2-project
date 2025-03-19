@@ -104,6 +104,7 @@
     padding: 12px;
     border-bottom: 1px solid #ddd;
     font-size: 15px;
+    vertical-align: middle;
 }
 
 /* Table Row Hover Effect */
@@ -111,9 +112,11 @@
     background-color: #f1f1f1;
 }
 
-/* Button Container */
-.buttonContainer {
-    margin-top: 10px;
+.buttonContainer{
+    display: flex;
+    gap:2px;
+    justify-content: center;
+
 }
 
 /* Action Buttons (Edit & Delete) */
