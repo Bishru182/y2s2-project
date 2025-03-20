@@ -15,6 +15,7 @@ function Supplier() {
   const [gender, setGender] = useState(''); // New state for gender
   const [remarks, setRemarks] = useState('');
   const [nameError, setNameError] = useState('');
+  const [sidError, setSidError] = useState('');
   const navigate = useNavigate();
 
   const handleNICChange = (e) => {
@@ -43,6 +44,7 @@ function Supplier() {
     }
   };
 
+  //supplier name validatiuon
   const handleNameChange = (e) => {
     const inputName = e.target.value;
     if (/\d/.test(inputName)) {
@@ -54,10 +56,24 @@ function Supplier() {
     setName(inputName);
   };
 
+  // Supplier ID validation
+  const handleSIDChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 6) {
+      setSidError('Supplier ID must not exceed 6 characters.');
+    }else if (value.length < 6){
+      setSidError('Supplier ID must have 6 characters.');
+    } 
+    else {
+      setSidError('');
+    }
+    setSid(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (nameError) return;
+    if (nameError ||sidError ) return;
 
     try {
       const response = await axios.post('http://localhost:5000/supplier', {
@@ -124,8 +140,10 @@ function Supplier() {
                   type="text"
                   placeholder='Enter ID'
                   value={sid}
-                  onChange={(e) => setSid(e.target.value)}
+                  onChange={handleSIDChange}
+                  style={{ border: sidError ? '2px solid red' : '' }} 
                 />
+                {sidError && <p className={styles.errorText}>{sidError}</p>}
               </div>
 
               <div className={styles.mb3}>
