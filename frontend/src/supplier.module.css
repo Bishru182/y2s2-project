@@ -132,6 +132,8 @@
     border: 2px solid rgb(255, 170, 0);
 }
 
+
+
 /* Form Grid Alignment */
 .formGrid {
     display: grid;
@@ -159,6 +161,19 @@
     background-color: rgb(255, 170, 0);
     color:#1c1c1c
 }
+
+/* New Error Styles 
+.errorInput {
+    border: 2px solid red; 
+}*/
+
+.errorText {
+    color: red;
+    font-size: 12px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+
 
 /* Media Queries for responsiveness */
 @media screen and (max-width: 768px) {

@@ -14,6 +14,7 @@ function Supplier() {
   const [nic, setNic] = useState('');
   const [gender, setGender] = useState(''); // New state for gender
   const [remarks, setRemarks] = useState('');
+  const [nameError, setNameError] = useState('');
   const navigate = useNavigate();
 
   const handleNICChange = (e) => {
@@ -42,8 +43,21 @@ function Supplier() {
     }
   };
 
+  const handleNameChange = (e) => {
+    const inputName = e.target.value;
+    if (/\d/.test(inputName)) {
+      setNameError('Numbers are not allowed in the name field.');
+    } else {
+      setNameError('');
+      
+    }
+    setName(inputName);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (nameError) return;
 
     try {
       const response = await axios.post('http://localhost:5000/supplier', {
@@ -98,8 +112,10 @@ function Supplier() {
                   type="text"
                   placeholder='Enter name'
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleNameChange}
+                  style={{ border: nameError ? '2px solid red' : '' }} 
                 />
+                {nameError && <p className={styles.errorText}>{nameError}</p>}
               </div>
 
               <div className={styles.mb3}>
