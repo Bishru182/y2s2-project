@@ -16,33 +16,36 @@ function Supplier() {
   const [remarks, setRemarks] = useState('');
   const [nameError, setNameError] = useState('');
   const [sidError, setSidError] = useState('');
+  const [contactError, setContactError] = useState('');
+  const [nicError, setNicError] = useState('');
   const navigate = useNavigate();
 
   const handleNICChange = (e) => {
     const inputNic = e.target.value;
     setNic(inputNic);
 
-    if (/^\d{9}[VXvx]$|^\d{12}$/.test(inputNic)) {
-      let genderDigits = '';
-
-      if (inputNic.length === 10) {
-        // Old format (9 digits + V/X)
-        genderDigits = inputNic.substring(2, 5);
-      } else if (inputNic.length === 12) {
-        // New format (12 digits)
-        genderDigits = inputNic.substring(4, 7);
-      }
-
-      if (genderDigits) {
-        const genderNumber = parseInt(genderDigits, 10);
-        setGender(genderNumber > 500 ? 'Female' : 'Male');
-      } else {
+    if (!/^\d{9}[Vv]$|^\d{12}$/.test(inputNic)) {
+        setNicError('Invalid NIC. Use 9 digits followed by V/v or 12 digits.');
         setGender('');
-      }
     } else {
-      setGender('');
+        setNicError('');
+
+        // Detect gender
+        let genderDigits = '';
+        if (inputNic.length === 10) {
+            genderDigits = inputNic.substring(2, 5);
+        } else if (inputNic.length === 12) {
+            genderDigits = inputNic.substring(4, 7);
+        }
+
+        if (genderDigits) {
+            const genderNumber = parseInt(genderDigits, 10);
+            setGender(genderNumber > 500 ? 'Female' : 'Male');
+        } else {
+            setGender('');
+        }
     }
-  };
+};
 
   //supplier name validatiuon
   const handleNameChange = (e) => {
@@ -70,10 +73,27 @@ function Supplier() {
     setSid(value);
   };
 
+  //contact number validation
+  const handleContactChange = (e) => {
+    const value = e.target.value;
+  
+    if (!/^\d*$/.test(value)) {
+      setContactError('Only digits are allowed.');
+    } else if (value.length > 10) {
+      setContactError('Contact number cannot exceed 10 digits.');
+    } else if (value.length < 10 && value.length > 0) {
+      setContactError('Contact number must be exactly 10 digits.');
+    } else {
+      setContactError('');
+    }
+  
+    setContact(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (nameError ||sidError ) return;
+    if (nameError ||sidError || contactError || nicError ) return;
 
     try {
       const response = await axios.post('http://localhost:5000/supplier', {
@@ -161,10 +181,11 @@ function Supplier() {
                 <input
                   type="tel"
                   placeholder='Enter phone number'
-                  pattern="[0-9]{10}" required
                   value={contact}
-                  onChange={(e) => setContact(e.target.value)}
+                  onChange={handleContactChange}
+                  style={{ border: contactError ? '2px solid red' : '' }}
                 />
+                 {contactError && <p className={styles.errorText}>{contactError}</p>}
               </div>
 
               <div className={styles.mb3}>
@@ -178,15 +199,15 @@ function Supplier() {
               </div>
 
               <div className={styles.mb3}>
-                <label><strong>NIC number</strong></label>
-                <input
-                  type="text"
-                  placeholder='Enter NIC'
-                  value={nic}
-                  onChange={handleNICChange}
-                  pattern="^\d{9}[VXvx]$|^\d{12}$"
-                  title="Enter a valid Sri Lankan NIC (9 digits followed by V/X or 12 digits)"
-                />
+               <label><strong>NIC number</strong></label>
+               <input
+                 type="text"
+                 placeholder='Enter NIC'
+                 value={nic}
+                 onChange={handleNICChange}
+                style={{ border: nicError ? '2px solid red' : '' }} 
+               />
+                {nicError && <p className={styles.errorText}>{nicError}</p>}
               </div>
 
               <div className={styles.mb3}>
