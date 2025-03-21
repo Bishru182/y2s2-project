@@ -18,6 +18,9 @@ function Supplier() {
   const [sidError, setSidError] = useState('');
   const [contactError, setContactError] = useState('');
   const [nicError, setNicError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState(''); // 'success' or 'error'
   const navigate = useNavigate();
 
   const handleNICChange = (e) => {
@@ -90,10 +93,41 @@ function Supplier() {
     setContact(value);
   };
 
+  //email validation
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+
+    // Email validation pattern
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(inputEmail)) {
+        setEmailError('Invalid email address. Please enter a valid email.');
+    } else {
+        setEmailError('');
+    }
+};
+
+  const showAlert = (message, type) => {
+    setAlertMessage(message);
+    setAlertType(type);
+    setTimeout(() => {
+    setAlertMessage('');
+    }, 3000); // Dismiss after 3 seconds
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (nameError ||sidError || contactError || nicError ) return;
+    if (!name || !sid || !email || !contact || !address || !nic || !remarks) {
+      showAlert('Please fill out all fields before submitting.', 'error');
+      return;
+    }
+
+    if (nameError || sidError || contactError || nicError || emailError) {
+      showAlert('Please fix all errors before submitting.', 'error');
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:5000/supplier', {
@@ -108,11 +142,13 @@ function Supplier() {
       });
 
       if (response.status === 200) {
-        alert('Supplier registered successfully!');
-        navigate('/sview');
+        showAlert('Supplier registered successfully!', 'success');
+        setTimeout(() => {
+          navigate('/sview');
+        }, 2000);
       }
     } catch (error) {
-      alert('Error: ' + error.response.data);
+      showAlert('Error: ' + error.response.data, 'error');
     }
   };
 
@@ -133,9 +169,16 @@ function Supplier() {
       </div>
 
       <div className={styles.content1}>
+
         <div className={styles.supplierContainer}>
+
+        {alertMessage && (
+         <div className={`${styles.alert} ${styles[alertType]}`}>
+           {alertMessage}
+         </div>
+         )}
+
          <div className={styles.btn_back} onClick={handleClick}><button>back</button></div>
-          
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.headers}>
               <h2>Supplier Details</h2>
@@ -172,8 +215,10 @@ function Supplier() {
                   type="email"
                   placeholder='Enter Email'
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
+                  style={{ border: emailError ? '2px solid red' : '' }} 
                 />
+                 {emailError && <p className={styles.errorText}>{emailError}</p>}
               </div>
 
               <div className={styles.mb3}>
@@ -234,8 +279,11 @@ function Supplier() {
             <button type="submit" className={styles.btn}>Add Supplier</button>
           </form>
         </div>
+
       </div>
+
     </div>
+
   );
 }
 
