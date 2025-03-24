@@ -20,6 +20,8 @@ function Sedit() {
     const [remarks, setRemarks] = useState(state?.supplier?.remarks || '');
     const [id, setId] = useState(state?.supplier?.id || ''); // Save the supplier's ID for updating
     const [nameError, setNameError] = useState('');
+    const [sidError, setSidError] = useState('');
+    
 
     const handleNICChange = (e) => {
       const inputNic = e.target.value;
@@ -58,6 +60,20 @@ function Sedit() {
     }
     setName(inputName);
   };
+
+    // Supplier ID validation
+    const handleSIDChange = (e) => {
+      const value = e.target.value;
+      if (value.length > 6) {
+        setSidError('Supplier ID must not exceed 6 characters.');
+      }else if (value.length < 6){
+        setSidError('Supplier ID must have 6 characters.');
+      } 
+      else {
+        setSidError('');
+      }
+      setSid(value);
+    };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -128,8 +144,10 @@ function Sedit() {
                   type="text"
                   placeholder='Enter ID'
                   value={sid}
-                  onChange={(e) => setSid(e.target.value)}
+                  onChange={handleSIDChange}
+                  style={{ border: sidError ? '2px solid red' : '' }} 
                 />
+                {sidError && <p className={styles.errorText}>{sidError}</p>}
               </div>
 
               <div className={styles.mb3}>
