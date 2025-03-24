@@ -23,33 +23,36 @@ function Sedit() {
     const [sidError, setSidError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [contactError, setContactError] = useState('');
+    const [nicError, setNicError] = useState('');
+    
     
 
     const handleNICChange = (e) => {
       const inputNic = e.target.value;
       setNic(inputNic);
   
-      if (/^\d{9}[VXvx]$|^\d{12}$/.test(inputNic)) {
-        let genderDigits = '';
-  
-        if (inputNic.length === 10) {
-          // Old format (9 digits + V/X)
-          genderDigits = inputNic.substring(2, 5);
-        } else if (inputNic.length === 12) {
-          // New format (12 digits)
-          genderDigits = inputNic.substring(4, 7);
-        }
-  
-        if (genderDigits) {
-          const genderNumber = parseInt(genderDigits, 10);
-          setGender(genderNumber > 500 ? 'Female' : 'Male');
-        } else {
+      if (!/^\d{9}[Vv]$|^\d{12}$/.test(inputNic)) {
+          setNicError('Invalid NIC. Use 9 digits followed by V/v or 12 digits.');
           setGender('');
-        }
       } else {
-        setGender('');
+          setNicError('');
+  
+          // Detect gender
+          let genderDigits = '';
+          if (inputNic.length === 10) {
+              genderDigits = inputNic.substring(2, 5);
+          } else if (inputNic.length === 12) {
+              genderDigits = inputNic.substring(4, 7);
+          }
+  
+          if (genderDigits) {
+              const genderNumber = parseInt(genderDigits, 10);
+              setGender(genderNumber > 500 ? 'Female' : 'Male');
+          } else {
+              setGender('');
+          }
       }
-    };
+  };
 
       //supplier name validatiuon
   const handleNameChange = (e) => {
@@ -219,25 +222,25 @@ function Sedit() {
               </div>
 
               <div className={styles.mb3}>
-                 <label><strong>NIC number</strong></label>
-                  <input
-                    type="text"
-                    placeholder='Enter NIC'
-                    value={nic}
-                    onChange={handleNICChange}
-                    pattern="^\d{9}[VXvx]$|^\d{12}$"
-                    title="Enter a valid Sri Lankan NIC (9 digits followed by V/X or 12 digits)"
-                  />
+               <label><strong>NIC number</strong></label>
+               <input
+                 type="text"
+                 placeholder='Enter NIC'
+                 value={nic}
+                 onChange={handleNICChange}
+                style={{ border: nicError ? '2px solid red' : '' }} 
+               />
+                {nicError && <p className={styles.errorText}>{nicError}</p>}
               </div>
 
               <div className={styles.mb3}>
-               <label><strong>Gender</strong></label>
-               <input
-                type="text"
-                value={gender}
-                readOnly
-                placeholder="Gender will be detected automatically"
-               />
+                <label><strong>Gender</strong></label>
+                <input
+                  type="text"
+                  value={gender}
+                  readOnly
+                  placeholder="Gender will be detected automatically"
+                />
               </div>
 
               <div className={styles.mb3}>
