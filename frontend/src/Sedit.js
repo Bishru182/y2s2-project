@@ -22,6 +22,7 @@ function Sedit() {
     const [nameError, setNameError] = useState('');
     const [sidError, setSidError] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [contactError, setContactError] = useState('');
     
 
     const handleNICChange = (e) => {
@@ -90,6 +91,23 @@ function Sedit() {
         setEmailError('');
     }
 };
+
+  //contact number validation
+  const handleContactChange = (e) => {
+    const value = e.target.value;
+  
+    if (!/^\d*$/.test(value)) {
+      setContactError('Only digits are allowed.');
+    } else if (value.length > 10) {
+      setContactError('Contact number cannot exceed 10 digits.');
+    } else if (value.length < 10 && value.length > 0) {
+      setContactError('Contact number must be exactly 10 digits.');
+    } else {
+      setContactError('');
+    }
+  
+    setContact(value);
+  };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -183,10 +201,11 @@ function Sedit() {
                 <input
                   type="tel"
                   placeholder='Enter phone number'
-                  pattern="[0-9]{10}" required
                   value={contact}
-                  onChange={(e) => setContact(e.target.value)}
+                  onChange={handleContactChange}
+                  style={{ border: contactError ? '2px solid red' : '' }}
                 />
+                 {contactError && <p className={styles.errorText}>{contactError}</p>}
               </div>
 
               <div className={styles.mb3}>
