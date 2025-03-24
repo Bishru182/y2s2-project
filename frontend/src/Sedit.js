@@ -21,6 +21,7 @@ function Sedit() {
     const [id, setId] = useState(state?.supplier?.id || ''); // Save the supplier's ID for updating
     const [nameError, setNameError] = useState('');
     const [sidError, setSidError] = useState('');
+    const [emailError, setEmailError] = useState('');
     
 
     const handleNICChange = (e) => {
@@ -74,6 +75,21 @@ function Sedit() {
       }
       setSid(value);
     };
+
+      //email validation
+  const handleEmailChange = (e) => {
+    const inputEmail = e.target.value;
+    setEmail(inputEmail);
+
+    // Email validation pattern
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(inputEmail)) {
+        setEmailError('Invalid email address. Please enter a valid email.');
+    } else {
+        setEmailError('');
+    }
+};
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -156,8 +172,10 @@ function Sedit() {
                   type="email"
                   placeholder='Enter Email'
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
+                  style={{ border: emailError ? '2px solid red' : '' }} 
                 />
+                 {emailError && <p className={styles.errorText}>{emailError}</p>}
               </div>
 
               <div className={styles.mb3}>
