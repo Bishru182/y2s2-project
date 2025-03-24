@@ -19,6 +19,7 @@ function Sedit() {
     const [gender, setGender] = useState(state?.supplier?.gender || '');
     const [remarks, setRemarks] = useState(state?.supplier?.remarks || '');
     const [id, setId] = useState(state?.supplier?.id || ''); // Save the supplier's ID for updating
+    const [nameError, setNameError] = useState('');
 
     const handleNICChange = (e) => {
       const inputNic = e.target.value;
@@ -45,6 +46,18 @@ function Sedit() {
         setGender('');
       }
     };
+
+      //supplier name validatiuon
+  const handleNameChange = (e) => {
+    const inputName = e.target.value;
+    if (/\d/.test(inputName)) {
+      setNameError('Numbers are not allowed in the name field.');
+    } else {
+      setNameError('');
+      
+    }
+    setName(inputName);
+  };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -103,8 +116,10 @@ function Sedit() {
                   type="text"
                   placeholder='Enter name'
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleNameChange}
+                  style={{ border: nameError ? '2px solid red' : '' }} 
                 />
+                {nameError && <p className={styles.errorText}>{nameError}</p>}
               </div>
 
               <div className={styles.mb3}>

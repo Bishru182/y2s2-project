@@ -160,6 +160,12 @@
     color:#1c1c1c
 }
 
+.errorText {
+    color: red;
+    font-size: 12px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
 /* Media Queries for responsiveness */
 @media screen and (max-width: 768px) {
     .formGrid {
