@@ -24,6 +24,8 @@ function Sedit() {
     const [emailError, setEmailError] = useState('');
     const [contactError, setContactError] = useState('');
     const [nicError, setNicError] = useState('');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertType, setAlertType] = useState(''); // 'success' or 'error'
     
     
 
@@ -111,9 +113,27 @@ function Sedit() {
   
     setContact(value);
   };
+
+  const showAlert = (message, type) => {
+    setAlertMessage(message);
+    setAlertType(type);
+    setTimeout(() => {
+    setAlertMessage('');
+    }, 3000); // Dismiss after 3 seconds
+  };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
+
+      if (!name || !sid || !email || !contact || !address || !nic || !remarks) {
+        showAlert('Please fill out all fields before submitting.', 'error');
+        return;
+      }
+  
+      if (nameError || sidError || contactError || nicError || emailError) {
+        showAlert('Please fix all errors before submitting.', 'error');
+        return;
+      }
   
       try {
         const response = await axios.put(`http://localhost:5000/supplier/${id}`, {
@@ -128,11 +148,13 @@ function Sedit() {
         });
   
         if (response.status === 200) {
-          alert('Supplier updated successfully!');
-          navigate('/sview');
+          showAlert('Supplier registered successfully!', 'success');
+          setTimeout(() => {
+            navigate('/sview');
+          }, 2000);
         }
       } catch (error) {
-        alert('Error: ' + error.response.data);
+        showAlert('Error: ' + error.response.data, 'error');
       }
     };
   
@@ -155,6 +177,13 @@ function Sedit() {
 
       <div className={styles.content1}>
         <div className={styles.supplierContainer}>
+
+                  {alertMessage && (
+                   <div className={`${styles.alert} ${styles[alertType]}`}>
+                     {alertMessage}
+                   </div>
+                   )}
+                   
          <div className={styles.btn_back} onClick={handleClick}><button>back</button></div>
           
           <form className={styles.form} onSubmit={handleSubmit}>
