@@ -12,6 +12,8 @@ function Order() {
   const [requireDate, setRequireDate] = useState('');
   const [remarks, setRemarks] = useState('');
   const [suppliers, setSuppliers] = useState([]);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState(''); // 'success' or 'error'
 
   const navigate = useNavigate();
 
@@ -40,8 +42,24 @@ function Order() {
     }
   };
 
+  const showAlert = (message, type) => {
+    setAlertMessage(message);
+    setAlertType(type);
+  
+    setTimeout(() => {
+      setAlertMessage('');
+      setAlertType(''); // Clear alert type too
+    }, 3000);
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!name.trim() || !email.trim() || !productName.trim() || !quantity.trim() || !requireDate.trim() || !remarks.trim()) {
+      showAlert('Please fill out all fields before submitting.', 'error');
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:5000/order', {
@@ -52,10 +70,10 @@ function Order() {
         requireDate,
         remarks
       });
-      alert('Order placed successfully!');
+      showAlert('Order placed successfully!','success');
     } catch (error) {
       console.error('Error placing order:', error);
-      alert('Failed to place the order.');
+      showAlert('Failed to place the order.','error');
     }
   };
 
@@ -72,7 +90,15 @@ function Order() {
 
       <div className={styles.content1}>
         <div className={styles.supplierContainer}>
-          <form className={styles.form} onSubmit={handleSubmit}>
+
+        {alertMessage && (
+  <div className={`${styles.alert} ${alertType === 'success' ? styles.success : styles.error}`}>
+    {alertMessage}
+  </div>
+)}
+
+
+          <form className={styles.form} onSubmit={handleSubmit} noValidate>
             <div className={styles.headers}><h2>Order Product</h2></div>
 
             <div className={styles.formGrid}>
