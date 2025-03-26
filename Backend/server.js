@@ -81,6 +81,21 @@ app.delete('/supplier/:id', (req, res) => {
   });
 });
 
+// API endpoint for deleting an order
+app.delete('/order/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM orders WHERE id = ?';
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Failed to delete order:', err);
+      res.status(500).send('Error deleting order');
+    } else {
+      res.status(200).send('Order deleted successfully');
+    }
+  });
+});
+
 // API endpoint for updating supplier data
 app.put('/supplier/:id', (req, res) => {
   const { id } = req.params;

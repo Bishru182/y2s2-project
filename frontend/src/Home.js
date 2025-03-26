@@ -34,6 +34,17 @@ function Home() {
     navigate('/sview');
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/order/${id}`);
+      setOrders(orders.filter(order => order.id !== id)); // Remove order from UI
+      //alert("Order deleted successfully!");
+    } catch (error) {
+      console.error('Error deleting order:', error);
+      alert("Failed to delete order.");
+    }
+  };
+
   return (
     <div className={styles.contain}>
       {/* Topmost Section: Navbar within Image Container */}
@@ -64,6 +75,7 @@ function Home() {
                 <th>Require Date</th>
                 <th>Remarks</th>
                 <th>Created At</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -77,6 +89,14 @@ function Home() {
                   <td>{order.requireDate}</td>
                   <td>{order.remarks}</td>
                   <td>{new Date(order.createdAt).toLocaleString()}</td>
+                  <td>
+                    <button 
+                      className={styles.deleteButton} 
+                      onClick={() => handleDelete(order.id)}
+                    >
+                      Delete
+                    </button>
+                  </td> 
                 </tr>
               ))}
             </tbody>
