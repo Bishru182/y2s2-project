@@ -7,18 +7,28 @@ body, html {
   width: 100%;
   height: 100%;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
 }
+
+
+
 
 /* Container styling */
 .loginContainer {
   height: 100vh;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background-color: aliceblue;
+  background-size: cover;
   margin: 0;
-  padding-right: 5px;
+  background: url('./bgImage.jpg') no-repeat center center;
+  background-size: cover;
+  /*padding-right: 5px;*/
+  padding:40px;
 }
+
+
 
 /* Form styling */
 .form {
@@ -30,7 +40,7 @@ body, html {
   max-width: 380px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  
   justify-content: center;
   align-items: center;
 }
@@ -73,7 +83,7 @@ input:focus {
 /* Button styling */
 .btn {
   width: 70%;
-  background-color: rgb(2, 172, 2);
+  background-color: #1c1c1c;
   padding: 20px;
   border-radius: 5px;
   color: white;
@@ -82,15 +92,33 @@ input:focus {
   margin: 40px auto 10px 70px; /* Center the button horizontally */
   transition: background-color 0.3s;
   font-size: 15px;
+  border: none;
 }
 
 
 .btn:hover {
-  background-color: rgb(3, 158, 3);
+  background-color: rgb(255, 170, 0);
+  color:#1c1c1c ;
+  border: none;
 }
 
 .error {
   color: red;
-  font-size: 0.875rem;
+  font-size: 12px;
   margin-top: 0.25rem;
+  font-family: 'Lucida Sans', sans-serif;
 }
+
+.alert {
+  background-color: #ffcccc;
+  color: #d8000c;
+  padding: 10px;
+  border: 1px solid #d8000c;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: opacity 0.5s ease-in-out;
+  font-family: 'Lucida Sans', sans-serif;
+}
+
