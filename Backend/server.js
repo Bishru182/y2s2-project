@@ -15,6 +15,7 @@ const db = mysql.createConnection({
   database: 'hardware'
 });
 
+
 // Connect to database
 db.connect((err) => {
   if (err) {
@@ -23,6 +24,33 @@ db.connect((err) => {
     console.log('Connected to MySQL database.');
   }
 });
+
+/*Function to get the next Supplier ID
+const getNextSupplierID = async () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT sid FROM suppliers ORDER BY id DESC LIMIT 1", (err, result) => {
+      if (err) reject(err);
+      if (result.length === 0) {
+        resolve("ID0000"); // First supplier
+      } else {
+        const lastID = result[0].sid;
+        const num = parseInt(lastID.slice(2)) + 1;
+        resolve(`ID${num.toString().padStart(4, "0")}`);
+      }
+    });
+  });
+};*/
+
+/* API to get the next Supplier ID
+app.get('/next-supplier-id', async (req, res) => {
+  try {
+    const nextID = await getNextSupplierID();
+    res.json({ nextID });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});*/
+
 
 // API endpoint for saving supplier data
 app.post('/supplier', (req, res) => {
