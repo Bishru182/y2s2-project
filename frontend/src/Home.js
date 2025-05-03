@@ -44,6 +44,21 @@ function Home() {
       alert("Failed to delete order.");
     }
   };
+  
+  const updateStatus = async (id, status) => {
+    try {
+      await axios.put(`http://localhost:5000/order/status/${id}`, { status });
+      setOrders(prevOrders =>
+        prevOrders.map(order =>
+          order.id === id ? { ...order, deliveryStatus: status } : order
+        )
+      );
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update delivery status.');
+    }
+  };
+  
 
   return (
     <div className={styles.contain}>
@@ -100,6 +115,8 @@ function Home() {
         type="radio"
         name={`status-${order.id}`}
         value="confirmed"
+        checked={order.deliveryStatus === 'confirmed'}
+        onChange={() => updateStatus(order.id, 'confirmed')}
       /> Confirmed
     </label>
     <label>
@@ -107,6 +124,8 @@ function Home() {
         type="radio"
         name={`status-${order.id}`}
         value="delivering"
+        checked={order.deliveryStatus === 'delivering'}
+        onChange={() => updateStatus(order.id, 'delivering')}
       /> Delivering
     </label>
     <label>
@@ -114,6 +133,8 @@ function Home() {
         type="radio"
         name={`status-${order.id}`}
         value="received"
+        checked={order.deliveryStatus === 'received'}
+        onChange={() => updateStatus(order.id, 'received')}
       /> Received
     </label>
   </div>
