@@ -125,3 +125,18 @@
     color: rgb(18, 19, 18);
 }
 
+.radioGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* spacing between each radio+label row */
+  }
+  
+  .radioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* space between radio button and label text */
+    font-size: 14px;
+  }
+  
+  
+

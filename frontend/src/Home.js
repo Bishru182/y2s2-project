@@ -75,6 +75,8 @@ function Home() {
                 <th>Require Date</th>
                 <th>Remarks</th>
                 <th>Created At</th>
+                
+                <th>Delivery status</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -89,6 +91,34 @@ function Home() {
                   <td>{order.requireDate}</td>
                   <td>{order.remarks}</td>
                   <td>{new Date(order.createdAt).toLocaleString()}</td>
+
+
+                  <td>
+  <div className={styles.radioGroup}>
+    <label>
+      <input
+        type="radio"
+        name={`status-${order.id}`}
+        value="confirmed"
+      /> Confirmed
+    </label>
+    <label>
+      <input
+        type="radio"
+        name={`status-${order.id}`}
+        value="delivering"
+      /> Delivering
+    </label>
+    <label>
+      <input
+        type="radio"
+        name={`status-${order.id}`}
+        value="received"
+      /> Received
+    </label>
+  </div>
+</td>
+
                   <td>
                     <button 
                       className={styles.deleteButton} 
@@ -96,7 +126,9 @@ function Home() {
                     >
                       Delete
                     </button>
-                  </td> 
+                  </td>
+
+                
                 </tr>
               ))}
             </tbody>
