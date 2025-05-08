@@ -67,6 +67,25 @@ app.post('/supplier', (req, res) => {
   });
 });
 
+// API endpoint for saving item data
+app.post('/items', (req, res) => {
+  const { id,productName, quantity} = req.body;
+
+  const sql = `INSERT INTO Items
+    (id,productName, quantity) 
+    VALUES (?, ?, ?)`;
+
+  db.query(sql, [id,productName, quantity], (err, result) => {
+    if (err) {
+      console.error('Failed to insert item data:', err);
+      res.status(500).send('Error saving item data');
+    } else {
+      res.status(200).send('Item data saved successfully!');
+    }
+  });
+});
+
+
 // API endpoint for fetching orders
 app.get('/orders', (req, res) => {
   const sql = 'SELECT * FROM orders';

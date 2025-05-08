@@ -48,16 +48,35 @@ function Home() {
   const updateStatus = async (id, status) => {
     try {
       await axios.put(`http://localhost:5000/order/status/${id}`, { status });
+  
+      // Update local state
       setOrders(prevOrders =>
         prevOrders.map(order =>
           order.id === id ? { ...order, deliveryStatus: status } : order
         )
       );
+  
+      // If status is 'received', store data in the item table
+      if (status === 'received') {
+        const receivedOrder = orders.find(order => order.id === id);
+        
+        await axios.post('http://localhost:5000/items', {
+          orderId: receivedOrder.id,
+          productName: receivedOrder.productName,
+          quantity: receivedOrder.quantity,
+          //receivedDate: new Date(), // or use backend time
+          //supplierName: receivedOrder.name,
+          //remarks: receivedOrder.remarks
+        });
+  
+        console.log("Item added to item table.");
+      }
     } catch (error) {
-      console.error('Error updating status:', error);
-      alert('Failed to update delivery status.');
+      console.error('Error updating status or storing item:', error);
+      alert('Failed to update status or store item data.');
     }
   };
+  
   
 
   return (
