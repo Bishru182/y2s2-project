@@ -22,7 +22,7 @@ function Home() {
   }, []);
 
   const handleClick1 = () => {
-    navigate('/supplier');
+    navigate('/');
   };
 
   const handleClick2 = () => {
@@ -88,6 +88,7 @@ function Home() {
           <button className={styles.navButton}>Home</button>
           <button className={styles.navButton} onClick={handleClick3}>Supplier</button>
           <button className={styles.navButton} onClick={handleClick2}>Order Product</button>
+          <button className={styles.logOutButton} onClick={handleClick1}>Logout</button>
         </nav>
       </div>
 
