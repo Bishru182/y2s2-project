@@ -236,7 +236,7 @@ Hardware Store`
   });
 });
 
-// ✅ New: Update delivery status
+// New: Update delivery status
 app.put('/order/status/:id', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
